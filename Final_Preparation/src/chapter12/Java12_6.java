@@ -1,7 +1,11 @@
 package chapter12;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -34,7 +38,23 @@ class DrawLine2 extends JPanel{
 		}
 		
 	}
+	DrawLine2(){
+		JButton b = new JButton("hello");
+		b.setBackground(Color.pink);
+		b.setOpaque(true);
+		b.setBorderPainted(false);
+		b.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("clicked!!");
+				
+			}
+		});
+		add(b);
+	}
 }
+
 
 public class Java12_6 extends JFrame{
 	Java12_6(){

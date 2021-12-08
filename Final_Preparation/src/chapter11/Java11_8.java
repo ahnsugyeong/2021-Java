@@ -28,11 +28,9 @@ class ImagePractice extends JPanel{
 		g.add(left); g.add(right);
 		add(left); add(right);
 		
-        File f = new File("images");
-        File files[] = f.listFiles();
-        
-        for(int i=0; i<files.length; i++){
-            ImageIcon image = new ImageIcon(files[i].getPath());
+        for(int i=0; i<4; i++){
+            ImageIcon image;
+            image = new ImageIcon(getClass().getClassLoader().getResource("cat"+(i+1)+".jpeg"));
             imgs.add(image);
         }
         
@@ -44,12 +42,12 @@ class ImagePractice extends JPanel{
         	public void mouseClicked(MouseEvent e) {
         		if(left.isSelected()) {
         			index--;
-        			if(index==-1) index = files.length-1;
+        			if(index==-1) index = 3;
         			curimg.setIcon(imgs.get(index));
         		}
         		else if(right.isSelected()) {
         			index++;
-        			if(index==files.length) index = 0;
+        			if(index==4) index = 0;
         			curimg.setIcon(imgs.get(index));
         		}
         	}
