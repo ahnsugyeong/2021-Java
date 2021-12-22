@@ -27,13 +27,14 @@ class HomeButton extends JButton{
 
 class ProfessorRegisterPanel extends JPanel implements ActionListener{
 	JTextField id;
+	JTextField name;
 	JTextField max;
 	Professor pro;
 	ProfessorRegisterPanel(Professor in, SejongManagement home){
 		pro = in;
 		Font titlefont = new Font("Klavika Bold", Font.PLAIN, 30);
 		setBackground(new Color(238, 230, 216));
-		JLabel l = new JLabel("  Professor Register");
+		JLabel l = new JLabel("  Professor Course Add");
 		l.setBounds(0, 0, 300, 50);
 		l.setOpaque(true);
 		l.setBackground(new Color(186, 73, 72));
@@ -48,8 +49,13 @@ class ProfessorRegisterPanel extends JPanel implements ActionListener{
 		l1.setFont(f);
 		add(l1);
 		
+		JLabel l3 = new JLabel("Course name: ");
+		l3.setBounds(30, 110, 100, 30);
+		l3.setFont(f);
+		add(l3);
+		
 		JLabel l2 = new JLabel("Max: ");
-		l2.setBounds(30, 110, 100, 30);
+		l2.setBounds(30, 150, 100, 30);
 		l2.setFont(f);
 		add(l2);
 		
@@ -58,8 +64,13 @@ class ProfessorRegisterPanel extends JPanel implements ActionListener{
 		id.setFont(f);
 		add(id);
 		
+		name = new JTextField(20);
+		name.setBounds(130, 110, 120, 30);
+		name.setFont(f);
+		add(name);
+		
 		max = new JTextField(2);
-		max.setBounds(130, 110, 30, 30);
+		max.setBounds(130, 150, 30, 30);
 		max.setFont(f);
 		add(max);
 		
@@ -77,7 +88,7 @@ class ProfessorRegisterPanel extends JPanel implements ActionListener{
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		
-		buttonPanel.setBounds(30, 150, 240, 50);
+		buttonPanel.setBounds(30, 190, 240, 50);
 		add(buttonPanel);
 	}
 
@@ -102,7 +113,7 @@ class ProfessorRegisterFrame extends JFrame{
 		c = getContentPane();
 		ProfessorRegisterPanel rp = new ProfessorRegisterPanel(pro,home);
 		c.add(rp);
-		setSize(300, 250);
+		setSize(300, 300);
 		setVisible(true);
 		
 	}
@@ -123,6 +134,9 @@ int flag = 0;
 		l.setOpaque(true);
 		l.setBackground(new Color(186, 73, 72));
 		l.setFont(titlefont);
+		HomeButton b = new HomeButton();
+		b.setBounds(450, 0, 50, 50);
+		add(b);
 		add(l);
 		Font f = new Font("Mulish", Font.BOLD, 15);
 		JButton []menu = new JButton[3];
@@ -161,11 +175,12 @@ class ProfessorFrame extends JFrame{
 	Container c;
 	
 	ProfessorFrame(Professor pro, SejongManagement home){
-		setTitle("Student management service");
+		setTitle("Professor Management Service");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		c = getContentPane();
 		ProfessorMenuPanel p = new ProfessorMenuPanel(pro, home);
 		c.add(p);
+		
 		setSize(500, 400);
 		setVisible(true);
 	}
@@ -225,19 +240,7 @@ class StudentRegisterPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("REGISTER")) {
-			for(int i=0;i<course.size();i++) {
-				if(course.get(i).courseid.equals(id.getText())) {
-					if(course.get(i).max == course.get(i).num) JOptionPane.showMessageDialog(null, "Full People!", "ERROR", JOptionPane.ERROR_MESSAGE);
-					else {
-						JOptionPane.showMessageDialog(null, "Register Success!", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
-						course.get(i).num += 1;
-					}
-					flag = 1;
-					break;
-				}
-			}
-			if(flag == 0) JOptionPane.showMessageDialog(null, "Course not found!", "ERROR", JOptionPane.ERROR_MESSAGE);
-			
+			JOptionPane.showMessageDialog(null, "Register Success!", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
 			id.setText("");
 			
 		}
@@ -249,7 +252,7 @@ class StudentRegisterPanel extends JPanel implements ActionListener{
 class StudentRegisterFrame extends JFrame{
 	Container c;
 	StudentRegisterFrame(Student stu, ArrayList<Course> all, SejongManagement home){
-		setTitle("Student management service");
+		setTitle("Student Management Service");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		c = getContentPane();
 		StudentRegisterPanel rp = new StudentRegisterPanel(stu, all, home);
@@ -296,8 +299,8 @@ class StudentMenuPanel extends JPanel{
 		
 		Font f = new Font("Mulish", Font.BOLD, 15);
 		JButton []menu = new JButton[6];
-		String []name = {"registering for course", "withdrawing the course", "checking a timetable", "taking a test", "taking a lecture", "checking grades"};
-		for(int i=0;i<6;i++) {
+		String []name = {"registering for course", "withdrawing the course", "checking a timetable", "taking a test", "checking grades"};
+		for(int i=0;i<5;i++) {
 			menu[i] = new JButton(name[i]);
 			menu[i].setBounds(0, 60+(i*50), 500, 50);
 			menu[i].setFont(f);
@@ -335,12 +338,7 @@ class StudentMenuPanel extends JPanel{
 				
 			}
 		});
-		menu[5].addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+	
 		
 	}
 	
@@ -629,7 +627,7 @@ class LoginPanel extends JPanel{
 public class SejongManagement extends JFrame{
 	Container c;
 	SejongManagement(){
-		setTitle("Sejong Online lecture management service");
+		setTitle("Sejong Online Management Service");
 		setSize(350, 250);
 		c = getContentPane();
 		c.add(new LoginPanel(this));
